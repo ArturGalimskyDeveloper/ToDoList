@@ -3,8 +3,7 @@ using CommandLine;
 
 namespace todo_list
 {
-
-    [Verb("add")]
+    [Verb("add", HelpText = "Add task")]
     class AddOptions
     {
         [Option('d',Required = false, HelpText = "Date of current task")]
@@ -14,10 +13,22 @@ namespace todo_list
         public string Text {get; set;}
     }
 
-    [Verb("list")]
+    [Verb("list", HelpText = "Out tasks")]
     public class ListOptions
     {
         // [Option("List", HelpText = "List all tasks", Default = null)]
         // public string List {get; set;}
+        [Option('a', HelpText = "List all tasks")]
+        public bool All { get; set; }
+
+        [Option('t', HelpText = "List day tasks")]
+        public bool Today { get; set; }
+    }
+
+    
+    [Verb("run", HelpText = "Run server")]
+    public class RunOptions
+    {
+
     }
 }

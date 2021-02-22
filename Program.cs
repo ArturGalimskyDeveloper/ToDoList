@@ -6,16 +6,12 @@ namespace todo_list
 {
     class Program
     {
-        private static List<string> TaskList = new List<string>()
-        {
-            "Task1", "task2", "Task3"
-        };
-
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<AddOptions, ListOptions>(args)
+            Parser.Default.ParseArguments<AddOptions, ListOptions, RunOptions>(args)
                 .WithParsed<AddOptions>(RunAddOptions)
                 .WithParsed<ListOptions>(RunListOptions)
+                .WithParsed<RunOptions>(RunRunOptions)
                 .WithNotParsed(HandleParseError);
         }
 
@@ -40,11 +36,24 @@ namespace todo_list
         }
 
         private static void RunListOptions(ListOptions opts)
-        {               
-            foreach(var task in TaskList)
+        {
+            if(opts.All)
             {
-                System.Console.WriteLine("task is : " + task);
+                // dispaly all tasks here...
             }
+            else if(opts.Today)
+            {
+                // filter today only tasks here...                
+            }
+        }
+    
+        private static void RunRunOptions(RunOptions opts)
+        {
+            System.Console.WriteLine("Running server");
+
+            // bot logic here...
+            
+            System.Console.ReadKey();
         }
     }
 }
