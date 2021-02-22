@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using CommandLine;
 
-namespace todo_list
+namespace TodoList
 {
     [Verb("add", HelpText = "Add task")]
     class AddOptions

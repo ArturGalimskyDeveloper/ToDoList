@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using CommandLine;
 
-namespace todo_list
+namespace TodoList
 {
     class Program
     {
@@ -36,10 +36,13 @@ namespace todo_list
         }
 
         private static void RunListOptions(ListOptions opts)
-        {
+        {            
             if(opts.All)
             {
-                // dispaly all tasks here...
+                foreach(var item in TaskDataMapper.GetAll())
+                {
+                    System.Console.WriteLine(item);
+                }
             }
             else if(opts.Today)
             {
@@ -51,8 +54,8 @@ namespace todo_list
         {
             System.Console.WriteLine("Running server");
 
-            // bot logic here...
-            
+            BotConnection botConnection = new BotConnection();
+            System.Console.WriteLine("Stop server, readkey to exit");
             System.Console.ReadKey();
         }
     }
