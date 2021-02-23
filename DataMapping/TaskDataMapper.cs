@@ -5,15 +5,15 @@ namespace TodoList
 {
     public class TaskDataMapper
     {
-        public static TodoTask GetById(int id)
+        public static TodoTask GetByUserId(int userid)
         {
             using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
             {
                 connection.Open();
 
                 var command = connection.CreateCommand();
-                command.CommandText = @" SELECT text FROM tasks WHERE id = $id";
-                command.Parameters.AddWithValue("$id", id);
+                command.CommandText = @" SELECT text FROM tasks WHERE user_id=$userid";
+                command.Parameters.AddWithValue("$user_id", userid);
 
                 using(var reader = command.ExecuteReader())
                 {
@@ -21,8 +21,9 @@ namespace TodoList
                     {
                         reader.Read();
 
+
                         string text = (string)reader["Text"];
-                        return new TodoTask(id, text);
+                        return new TodoTask(0, text, userid);
                     }
                 }
             }

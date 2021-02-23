@@ -40,8 +40,10 @@ namespace TodoList
             switch(message.Text.Split(' ').First())
             {
                 case "/add":
+                    await AddCommand(message);
                     break;
                 case "/check":
+                    await CheckCommand(message);
                     break;
                 case "/delete":
                     await DeleteCommand(message);
@@ -55,14 +57,28 @@ namespace TodoList
                 case "/start":
                     await StartCommand(message);
                     break;
-                case "/stat":
-                    break;
-                case "/today":
-                    break;
                 default:
                     await HelpCommand(message);
                     break;
             }
+        }
+
+        async System.Threading.Tasks.Task AddCommand(Message message)
+        {
+            string res = $"Now your data is add {message.From.Username}";
+            await _botClient.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: res
+            );
+        }
+
+        async System.Threading.Tasks.Task CheckCommand(Message message)
+        {
+            string res = $"Now your data is check {message.From.Username}";
+            await _botClient.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: res
+            );
         }
 
         async System.Threading.Tasks.Task DeleteCommand(Message message)
