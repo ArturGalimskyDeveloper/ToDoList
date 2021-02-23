@@ -4,9 +4,8 @@ namespace TodoList
 {
     public class UserDataMapper
     {
-        public static void Save(User user)
+        public static bool Save(User user)
         {
-            // save new user here
             using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
             {
                 connection.Open();
@@ -15,11 +14,12 @@ namespace TodoList
                 {
                     command.CommandType = System.Data.CommandType.Text;
 
-                    command.CommandText = "INSERT INTO [users] (user_id, user_name) VALUES (@ID, @name)";
+                    command.CommandText = "INSERT OR IGNORE INTO [users] (user_id, user_name)" 
+                                           + "VALUES (@ID, @name)";
                     command.Parameters.AddWithValue("@ID",user.ID);
                     command.Parameters.AddWithValue("@name", user.NAME);
 
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery() == 0 ? false : true;
                 }
             }
         }

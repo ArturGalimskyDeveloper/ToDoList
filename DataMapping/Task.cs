@@ -10,6 +10,5 @@ namespace TodoList
             ID = id;
             TEXT = text;
         }
-
     }
 }

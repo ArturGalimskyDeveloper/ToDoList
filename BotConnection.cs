@@ -98,7 +98,10 @@ namespace TodoList
         async System.Threading.Tasks.Task StartCommand(Message message)
         {
             string res = $"Welcome to todo-list bot {message.From.Username}";
-            UserDataMapper.Save(new User(message.From.Id,message.From.Username));
+            if(!UserDataMapper.Save(new User(message.From.Id,message.From.Username)))
+            {
+                res = $"{message.From.Username} you are already in system";
+            }
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
