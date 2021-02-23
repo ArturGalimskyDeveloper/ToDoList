@@ -24,7 +24,7 @@ namespace TodoList
             }
         }
 
-        public static void Delete(int id)
+        public static bool Delete(int id)
         {
             // delete new user here
             using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
@@ -38,7 +38,7 @@ namespace TodoList
                     command.CommandText = "DELETE FROM [users] WHERE [user_id] = @ID";
                     command.Parameters.AddWithValue("@ID", id);
 
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery() == 1 ? true : false;
                 }
             }
         }

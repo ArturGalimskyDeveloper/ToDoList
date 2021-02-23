@@ -68,7 +68,10 @@ namespace TodoList
         async System.Threading.Tasks.Task DeleteCommand(Message message)
         {
             string res = $"Now your data is deleted {message.From.Username}";
-            UserDataMapper.Delete(message.From.Id);
+            if(!UserDataMapper.Delete(message.From.Id))
+            {
+                res = $"Your data is already deleted {message.From.Username}";
+            }
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
