@@ -1,14 +1,32 @@
-DROP TABLE IF EXISTS "Tasks";
+DROP TABLE IF EXISTS "tasks";
+DROP TABLE IF EXISTS "users";
 
-CREATE TABLE "Tasks"
+PRAGMA FOREIGN_KEYS=On;
+
+CREATE TABLE "tasks"
 (
     "task_id" INTEGER PRIMARY KEY NOT NULL,
     "text" TEXT NOT NULL,
-    "date" TEXT NOT NULL
+    "done" INTEGER NOT NULL,
+    "user_id" INTEGER NOT NULL,
+    "date" TEXT NOT NULL,
+    FOREIGN KEY (user_id) 
+        REFERENCES "users" (user_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
-INSERT INTO "tasks" (task_id, text, date)
-VALUES (1, 'Make homework', '22.02.11');
+CREATE TABLE "users"
+(
+    "user_id" INTEGER PRIMARY KEY NOT NULL,
+    "user_name" TEXT NOT NULL
+);
 
-INSERT INTO "tasks" (task_id, text, date)
-VALUES (2, 'Find job', '22.04.21');
+INSERT INTO "users" (user_id, user_name)
+VALUES (4444, "hans");
+
+INSERT INTO "tasks" (task_id, text, done, user_id, date)
+VALUES (1, 'Make homework', 0, 4444, "23.02.2021");
+
+INSERT INTO "tasks" (task_id, text, done, user_id, date)
+VALUES (2, 'Find job', 1, 4444, "23.02.2021");

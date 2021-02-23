@@ -22,7 +22,7 @@ namespace TodoList
                         reader.Read();
 
                         string text = (string)reader["Text"];
-                        return new TodoTask(id, text, "");
+                        return new TodoTask(id, text);
                     }
                 }
             }

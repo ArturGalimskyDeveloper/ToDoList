@@ -1,6 +1,6 @@
-<mxfile host="65bd71144e" modified="2021-02-22T05:58:12.523Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.53.2 Chrome/87.0.4280.141 Electron/11.2.1 Safari/537.36" etag="sT6nax1xrCHpTAxY85uN" version="14.2.4" type="embed" pages="2">
+<mxfile host="65bd71144e" modified="2021-02-23T09:59:56.435Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.53.2 Chrome/87.0.4280.141 Electron/11.2.1 Safari/537.36" etag="KxJZE4Cy-EhrDFPhKyt6" version="14.2.4" type="embed" pages="3">
     <diagram id="NA6SYBTtoj5cSSuoLxSi" name="Page-1">
-        <mxGraphModel dx="668" dy="381" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="736" dy="251" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -11,7 +11,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="_omWU2YCRSud_Koi4YXB-2" value="bot UI" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-                    <mxGeometry x="80" y="30" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="70" y="20" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="_omWU2YCRSud_Koi4YXB-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=open;startFill=0;" parent="1" source="_omWU2YCRSud_Koi4YXB-3" target="_omWU2YCRSud_Koi4YXB-36" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -69,19 +69,52 @@
                         <mxPoint x="190" y="390" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
+                <mxCell id="gQ4omcPwMTRj3lN1hxgD-1" value="user" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="gQ4omcPwMTRj3lN1hxgD-2" value="task" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="480" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="gQ4omcPwMTRj3lN1hxgD-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=oval;startFill=0;strokeWidth=5;" parent="1" source="gQ4omcPwMTRj3lN1hxgD-1" target="gQ4omcPwMTRj3lN1hxgD-2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="h-xg_mXguGphmlEH9WH7" name="команды">
-        <mxGraphModel dx="668" dy="381" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        &#xa;        &#xa;        &#xa;&#xa;&#xa;
+        <mxGraphModel dx="621" dy="422" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            &#xa;            &#xa;            &#xa;&#xa;&#xa;
             <root>
+                &#xa;                &#xa;                &#xa;&#xa;&#xa;
                 <mxCell id="NZh7P8g-utqCw8Q0C4Fn-0"/>
+                &#xa;                &#xa;                &#xa;&#xa;&#xa;
                 <mxCell id="NZh7P8g-utqCw8Q0C4Fn-1" parent="NZh7P8g-utqCw8Q0C4Fn-0"/>
-                <mxCell id="NZh7P8g-utqCw8Q0C4Fn-2" value="-runserver" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="NZh7P8g-utqCw8Q0C4Fn-1">
+                &#xa;                &#xa;                &#xa;&#xa;&#xa;
+                <mxCell id="NZh7P8g-utqCw8Q0C4Fn-2" value="-runserver" style="rounded=0;whiteSpace=wrap;html=1;" parent="NZh7P8g-utqCw8Q0C4Fn-1" vertex="1">
+                    &#xa;                    &#xa;                    &#xa;&#xa;&#xa;
                     <mxGeometry x="10" y="10" width="120" height="30" as="geometry"/>
+                    &#xa;                    &#xa;                    &#xa;&#xa;&#xa;
                 </mxCell>
-                <mxCell id="NZh7P8g-utqCw8Q0C4Fn-3" value="Команда для запуска в фоновом режиме" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="NZh7P8g-utqCw8Q0C4Fn-1">
+                &#xa;                &#xa;                &#xa;&#xa;&#xa;
+                <mxCell id="NZh7P8g-utqCw8Q0C4Fn-3" value="Команда для запуска в фоновом режиме" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="NZh7P8g-utqCw8Q0C4Fn-1" vertex="1">
+                    &#xa;                    &#xa;                    &#xa;&#xa;&#xa;
                     <mxGeometry x="160" y="15" width="240" height="20" as="geometry"/>
+                    &#xa;                    &#xa;                    &#xa;&#xa;&#xa;
+                </mxCell>
+                &#xa;                &#xa;                &#xa;&#xa;&#xa;
+            </root>
+            &#xa;            &#xa;            &#xa;&#xa;&#xa;
+        </mxGraphModel>
+        &#xa;        &#xa;        &#xa;&#xa;&#xa;
+    </diagram>
+    <diagram id="j0Vk2PYLU5-yoE5YA4vs" name="Задача">
+        <mxGraphModel dx="736" dy="251" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="ipP359urnxsaVKmlsc2U-0"/>
+                <mxCell id="ipP359urnxsaVKmlsc2U-1" parent="ipP359urnxsaVKmlsc2U-0"/>
+                <mxCell id="HDLuYYlk4DtaqR7kUo2G-1" value="&lt;h1&gt;Общий план&lt;/h1&gt;&lt;p&gt;Создать минимального бота todo-list с подключением к БД.&lt;/p&gt;&lt;p&gt;/add&lt;/p&gt;&lt;p&gt;/list&lt;/p&gt;&lt;p&gt;/check&lt;/p&gt;&lt;p&gt;/stat&lt;/p&gt;&lt;p&gt;/delete&lt;/p&gt;&lt;p&gt;Анализ выполненных тасков за день.&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="ipP359urnxsaVKmlsc2U-1" vertex="1">
+                    <mxGeometry x="10" y="10" width="240" height="260" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

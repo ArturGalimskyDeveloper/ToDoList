@@ -3,14 +3,12 @@ namespace TodoList
     public class TodoTask
     {
         public int ID { get; set; }
-        public string Text { get; set; }
-        public string Date { get; set; }
+        public string TEXT { get; set; }
 
-        public TodoTask(int id, string text, string date)
+        public TodoTask(int id, string text)
         {
             ID = id;
-            Text = text;
-            Date = date;
+            TEXT = text;
         }
 
     }
