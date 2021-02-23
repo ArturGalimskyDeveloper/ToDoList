@@ -1,15 +1,10 @@
 
 using System;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InlineQueryResults;
-using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TodoList
@@ -33,7 +28,7 @@ namespace TodoList
             Console.ReadLine();
             _botClient.StopReceiving();
         }
-
+        
         private async void BotOnMessageReceived(object sender,MessageEventArgs messageEventArgs)
         {
             var message = messageEventArgs.Message;
@@ -44,23 +39,43 @@ namespace TodoList
 
             switch(message.Text.Split(' ').First())
             {
+                case "/add":
+                    break;
+                case "/check":
+                    break;
+                case "/delete":
+                    await DeleteCommand(message);
+                    break;
+                case "/help":
+                    await HelpCommand(message);
+                    break;
                 case "/list":
-                    await SendAllTasks(message);
+                    await ListCommand(message);
+                    break;
+                case "/start":
+                    await StartCommand(message);
+                    break;
+                case "/stat":
+                    break;
+                case "/today":
+                    break;
+                default:
+                    await HelpCommand(message);
                     break;
             }
-
         }
 
-        async System.Threading.Tasks.Task SendAllTasks(Message message)
+        async System.Threading.Tasks.Task DeleteCommand(Message message)
         {
-            string res = string.Join(",",TaskDataMapper.GetAll());
+            string res = $"Now your data is deleted {message.From.Username}";
+            UserDataMapper.Delete(message.From.Id);
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
             );
         }
 
-        async System.Threading.Tasks.Task Usage(Message message)
+        async System.Threading.Tasks.Task HelpCommand(Message message)
         {
             const string usage = "Usage:\n" +
                                     "/list   - send all tasks\n";
@@ -70,5 +85,25 @@ namespace TodoList
                 replyMarkup: new ReplyKeyboardRemove()
             );
         }
+
+        async System.Threading.Tasks.Task ListCommand(Message message)
+        {
+            string res = string.Join(",",TaskDataMapper.GetAll());
+            await _botClient.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: res
+            );
+        }
+
+        async System.Threading.Tasks.Task StartCommand(Message message)
+        {
+            string res = $"Welcome to todo-list bot {message.From.Username}";
+            UserDataMapper.Save(new User(message.From.Id,message.From.Username));
+            await _botClient.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: res
+            );
+        }
+
     }
 }
