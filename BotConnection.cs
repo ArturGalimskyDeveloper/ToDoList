@@ -66,7 +66,8 @@ namespace TodoList
         async System.Threading.Tasks.Task AddCommand(Message message)
         {
             string res = $"Adding task {message.From.Username}";
-            TaskDataMapper.Save(message.Text, message.From.Id);
+            string messageText = message.Text.Remove(0, message.Text.IndexOf(' ') + 1);
+            TaskDataMapper.Save(messageText, message.From.Id);
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
@@ -108,7 +109,7 @@ namespace TodoList
 
         async System.Threading.Tasks.Task ListCommand(Message message)
         {
-            string res = string.Join(",",TaskDataMapper.GetAll());
+            string res = string.Join(",",TaskDataMapper.GetAll(message.From.Id));
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
