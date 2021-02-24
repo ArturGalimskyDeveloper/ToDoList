@@ -5,7 +5,7 @@ PRAGMA FOREIGN_KEYS=On;
 
 CREATE TABLE "tasks"
 (
-    "task_id" INTEGER PRIMARY KEY NOT NULL,
+    "task_id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "text" TEXT NOT NULL,
     "user_id" INTEGER NOT NULL,
     FOREIGN KEY (user_id) 
@@ -23,8 +23,9 @@ CREATE TABLE "users"
 INSERT INTO "users" (user_id, user_name)
 VALUES (4444, "hans");
 
-INSERT INTO "tasks" (task_id, text, user_id)
-VALUES (1, 'Make homework', 4444);
+INSERT INTO "tasks" (text, user_id)
+VALUES ('Make homework', 4444);
 
-INSERT INTO "tasks" (task_id, text, user_id)
-VALUES (2, 'Find job', 4444);
+INSERT INTO "tasks" (text, user_id)
+VALUES ('Find job', 4444);
+

@@ -5,28 +5,28 @@ namespace TodoList
 {
     public class TaskDataMapper
     {
-        public static TodoTask GetByUserId(int userid)
+        public static TodoTask GetAllByUserId(int userid)
         {
-            using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
-            {
-                connection.Open();
+            // using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
+            // {
+            //     connection.Open();
 
-                var command = connection.CreateCommand();
-                command.CommandText = @" SELECT text FROM tasks WHERE user_id=$userid";
-                command.Parameters.AddWithValue("$user_id", userid);
+            //     var command = connection.CreateCommand();
+            //     command.CommandText = @" SELECT * FROM tasks WHERE user_id=$userid";
+            //     command.Parameters.AddWithValue("$user_id", userid);
 
-                using(var reader = command.ExecuteReader())
-                {
-                    if(reader.HasRows)
-                    {
-                        reader.Read();
+            //     using(var reader = command.ExecuteReader())
+            //     {
+            //         if(reader.HasRows)
+            //         {
+            //             reader.Read();
 
 
-                        string text = (string)reader["Text"];
-                        return new TodoTask(0, text, userid);
-                    }
-                }
-            }
+            //             string text = (string)reader["Text"];
+            //             return new TodoTask(0, text, userid);
+            //         }
+            //     }
+            // }
 
             return null;
         }
@@ -59,9 +59,24 @@ namespace TodoList
             return tasks;
         }
 
-        public void Save(TodoTask task)
+        public static void Save(string text, int user_id)
         {
+            using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
+            {
+                connection.Open();
 
+                using(var command = connection.CreateCommand())
+                {
+                    command.CommandType = System.Data.CommandType.Text;
+
+                    command.CommandText = "INSERT INTO [tasks] (text, user_id)" 
+                                           + "VALUES (@text, @user_id)";
+                    command.Parameters.AddWithValue("@text",text);
+                    command.Parameters.AddWithValue("@user_id", user_id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(TodoTask task)

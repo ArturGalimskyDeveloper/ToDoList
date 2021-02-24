@@ -65,7 +65,8 @@ namespace TodoList
 
         async System.Threading.Tasks.Task AddCommand(Message message)
         {
-            string res = $"Now your data is add {message.From.Username}";
+            string res = $"Adding task {message.From.Username}";
+            TaskDataMapper.Save(message.Text, message.From.Id);
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res
