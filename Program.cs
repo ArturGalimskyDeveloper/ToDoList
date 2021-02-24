@@ -39,10 +39,10 @@ namespace TodoList
         {            
             if(opts.All)
             {
-                foreach(var item in TaskDataMapper.GetAll())
-                {
-                    System.Console.WriteLine(item);
-                }
+                // foreach(var item in TaskDataMapper.GetAll())
+                // {
+                //     System.Console.WriteLine(item);
+                // }
             }
             else if(opts.Today)
             {

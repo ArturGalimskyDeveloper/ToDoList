@@ -109,7 +109,7 @@ namespace TodoList
 
         async System.Threading.Tasks.Task ListCommand(Message message)
         {
-            string res = string.Join(",",TaskDataMapper.GetAll(message.From.Id));
+            string res = string.Join("\n",TaskDataMapper.GetAll(message.From.Id));
             await _botClient.SendTextMessageAsync(
                 chatId: message.Chat,
                 text: res

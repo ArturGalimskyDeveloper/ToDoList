@@ -31,18 +31,35 @@ namespace TodoList
             return null;
         }
 
-        public static List<string> GetAll()
+        public static List<string> GetAll(int user_id)
         {
             List<string> tasks = new List<string>();
 
             using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
             {
-                connection.Open();
-                string query = "SELECT task_id, text, date FROM tasks";
+                connection.Open();            
 
-                using(SqliteCommand comand = new SqliteCommand(query, connection))
+                using(var command = connection.CreateCommand())
                 {
-                    using(SqliteDataReader reader = comand.ExecuteReader())
+                    command.CommandType = System.Data.CommandType.Text;
+                    command.CommandText = @"
+                    CREATE TEMPORARY TABLE user_tasks
+                    (
+                        task_id INTEGER NOT NULL,
+                        text TEXT not NULL,
+                        indx INTEGER PRIMARY KEY AUTOINCREMENT
+                    );
+
+                    INSERT INTO user_tasks (task_id, text)
+                    SELECT task_id, TEXT
+                    FROM   tasks
+                    WHERE user_id = @user_id;
+
+                    SELECT * FROM user_tasks;";  
+
+                    command.Parameters.AddWithValue("@user_id", user_id);
+
+                    using(SqliteDataReader reader = command.ExecuteReader())
                     {
                         while(reader.Read())
                         {
