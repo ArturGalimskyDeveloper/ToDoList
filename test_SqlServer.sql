@@ -18,7 +18,7 @@ GO
 CREATE TABLE dbo.Users
 (
     user_id INT NOT NULL,
-    user_name TEXT NOT NULL
+    user_name [VARCHAR](30) NOT NULL
 );
 GO
 

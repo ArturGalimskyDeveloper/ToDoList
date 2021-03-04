@@ -226,3 +226,4 @@ project.lock.json
 
 # Project db
 tasks.db
+app.config
