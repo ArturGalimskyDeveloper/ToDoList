@@ -1,5 +1,8 @@
 using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace TodoList
 {
@@ -78,21 +81,19 @@ namespace TodoList
 
         public static void Save(string text, int user_id)
         {
-            using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
             {
                 connection.Open();
 
-                using(var command = connection.CreateCommand())
+                var sql = "INSERT INTO dbo.tasks(task_text, user_id) VALUES(@task_text, @user_id)";
+                using(var command = new SqlCommand(sql, connection))
                 {
-                    command.CommandType = System.Data.CommandType.Text;
-
-                    command.CommandText = "INSERT INTO [tasks] (text, user_id)" 
-                                           + "VALUES (@text, @user_id)";
-                    command.Parameters.AddWithValue("@text",text);
-                    command.Parameters.AddWithValue("@user_id", user_id);
-
+                    command.Parameters.Add("@task_text", SqlDbType.VarChar, 30).Value = text;
+                    command.Parameters.Add("@user_id", SqlDbType.Int).Value = user_id;
+                    command.CommandType = CommandType.Text;
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
             }
         }
 
