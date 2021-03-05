@@ -8,73 +8,49 @@ namespace TodoList
 {
     public class TaskDataMapper
     {
-        public static TodoTask GetAllByUserId(int userid)
-        {
-            // using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
-            // {
-            //     connection.Open();
-
-            //     var command = connection.CreateCommand();
-            //     command.CommandText = @" SELECT * FROM tasks WHERE user_id=$userid";
-            //     command.Parameters.AddWithValue("$user_id", userid);
-
-            //     using(var reader = command.ExecuteReader())
-            //     {
-            //         if(reader.HasRows)
-            //         {
-            //             reader.Read();
-
-
-            //             string text = (string)reader["Text"];
-            //             return new TodoTask(0, text, userid);
-            //         }
-            //     }
-            // }
-
-            return null;
-        }
-
         public static List<string> GetAll(int user_id)
         {
             List<string> tasks = new List<string>();
 
-            using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
             {
-                connection.Open();            
+                connection.Open();
 
-                using(var command = connection.CreateCommand())
-                {
-                    command.CommandType = System.Data.CommandType.Text;
-                    command.CommandText = @"
-                    CREATE TEMPORARY TABLE user_tasks
+                var sql = @"
+                    CREATE TABLE #user_tasks
                     (
-                        task_id INTEGER NOT NULL,
-                        text TEXT not NULL,
-                        indx INTEGER PRIMARY KEY AUTOINCREMENT
+                        task_id INT NOT NULL,
+                        task_text VARCHAR(30) NOT NULL,
+                        indx INT NOT NULL IDENTITY(1,1)
                     );
 
-                    INSERT INTO user_tasks (task_id, text)
-                    SELECT task_id, TEXT
-                    FROM   tasks
-                    WHERE user_id = @user_id;
+                    INSERT INTO 
+                        #user_tasks
+                    SELECT
+                        task_id, 
+                        task_text
+                    FROM
+                        dbo.Tasks
+                    WHERE
+                        user_id = @user_id;
 
-                    SELECT * FROM user_tasks;";  
-
+                    SELECT indx, task_text FROM #user_tasks;
+                ";
+                using(var command = new SqlCommand(sql, connection))
+                {
                     command.Parameters.AddWithValue("@user_id", user_id);
-
-                    using(SqliteDataReader reader = command.ExecuteReader())
+                    using(SqlDataReader reader = command.ExecuteReader())
                     {
                         while(reader.Read())
                         {
-                            var sb = new System.Text.StringBuilder();
-                            for(int i=0; i<reader.FieldCount; i++)
-                            {
-                                sb.Append(reader.GetString(i) + " ");
-                            }
-                            tasks.Add(sb.ToString());
+                            tasks.Add(reader[0].ToString() + ") " + reader[1].ToString());
                         }
                     }
+
+                    command.CommandType = CommandType.Text;
+                    command.ExecuteNonQuery();
                 }
+                connection.Close();
             }
             return tasks;
         }
