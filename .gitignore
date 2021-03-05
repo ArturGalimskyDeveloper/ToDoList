@@ -227,3 +227,4 @@ project.lock.json
 # Project db
 tasks.db
 app.config
+test_SqlServer_values.sql

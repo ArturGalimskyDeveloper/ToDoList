@@ -8,6 +8,25 @@ namespace TodoList
 {
     public class TaskDataMapper
     {
+        private static string CreateUserTasksTableQuery = @"
+            CREATE TABLE #user_tasks
+            (
+                task_id INT NOT NULL,
+                task_text VARCHAR(30) NOT NULL,
+                indx INT NOT NULL IDENTITY(1,1)
+            );
+
+            INSERT INTO 
+                #user_tasks
+            SELECT
+                task_id, 
+                task_text
+            FROM
+                dbo.Tasks
+            WHERE
+                user_id = @user_id;
+        ";
+
         public static List<string> GetAll(int user_id)
         {
             List<string> tasks = new List<string>();
@@ -16,26 +35,7 @@ namespace TodoList
             {
                 connection.Open();
 
-                var sql = @"
-                    CREATE TABLE #user_tasks
-                    (
-                        task_id INT NOT NULL,
-                        task_text VARCHAR(30) NOT NULL,
-                        indx INT NOT NULL IDENTITY(1,1)
-                    );
-
-                    INSERT INTO 
-                        #user_tasks
-                    SELECT
-                        task_id, 
-                        task_text
-                    FROM
-                        dbo.Tasks
-                    WHERE
-                        user_id = @user_id;
-
-                    SELECT indx, task_text FROM #user_tasks;
-                ";
+                var sql = CreateUserTasksTableQuery + "SELECT indx, task_text, task_id FROM #user_tasks;";
                 using(var command = new SqlCommand(sql, connection))
                 {
                     command.Parameters.AddWithValue("@user_id", user_id);
@@ -43,7 +43,7 @@ namespace TodoList
                     {
                         while(reader.Read())
                         {
-                            tasks.Add(reader[0].ToString() + ") " + reader[1].ToString());
+                            tasks.Add(reader[0].ToString() + ") " + reader[1].ToString() + " " + reader[2].ToString());
                         }
                     }
 
@@ -73,22 +73,34 @@ namespace TodoList
             }
         }
 
-        public void Delete(TodoTask task)
+        public static bool Delete(int user_id, int taskIndex)
         {
-            using(var connection = new SqliteConnection(Configuration.CONNECTION_STRING))
+            bool result = false;
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
             {
                 connection.Open();
 
-                using(var command = connection.CreateCommand())
+                var sql = CreateUserTasksTableQuery + @"
+                    DELETE 
+                        t1
+                    FROM 
+                        dbo.Tasks t1
+                    INNER JOIN 
+                        #user_tasks t2 ON t1.task_id=t2.task_id
+                    WHERE
+                        t2.indx = @indx;
+                ";
+                using(var command = new SqlCommand(sql, connection))
                 {
-                    command.CommandType = System.Data.CommandType.Text;
-
-                    command.CommandText = "DELETE FROM [Customer] WHERE [ID] = @ID";
-                    command.Parameters.AddWithValue("@ID", task.ID);
-
+                    command.Parameters.AddWithValue("@user_id", user_id);
+                    command.Parameters.AddWithValue("@indx", taskIndex);
+                    command.CommandType = CommandType.Text;
                     command.ExecuteNonQuery();
+                    result = command.ExecuteNonQuery() == 1 ? true : false;
                 }
+                connection.Close();
             }
+            return result;
         }
     }
 }
