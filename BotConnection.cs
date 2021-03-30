@@ -48,6 +48,9 @@ namespace TodoList
                 case "/delete":
                     await DeleteCommand(message);
                     break;
+                case "/exit":
+                    await ExitCommand(message);
+                    break;
                 case "/help":
                     await HelpCommand(message);
                     break;
@@ -84,6 +87,26 @@ namespace TodoList
         }
 
         async System.Threading.Tasks.Task DeleteCommand(Message message)
+        {
+            string res = $"Removing task with number {message.From.Username}";
+            string taskIndexString = message.Text.Remove(0, message.Text.IndexOf(' ') + 1);
+            int taskIndex;
+            if(int.TryParse(taskIndexString,out taskIndex))
+            {
+                TaskDataMapper.Delete(message.From.Id, taskIndex);
+            }
+            else
+            {
+                res = "Enter numeric value";
+            }
+            
+            await _botClient.SendTextMessageAsync(
+                chatId: message.Chat,
+                text: res
+            );
+        }
+
+        async System.Threading.Tasks.Task ExitCommand(Message message)
         {
             string res = $"Now your data is deleted {message.From.Username}";
             if(!UserDataMapper.Delete(message.From.Id))

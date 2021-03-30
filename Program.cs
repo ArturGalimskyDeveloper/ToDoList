@@ -8,11 +8,12 @@ namespace TodoList
     {
         static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<AddOptions, ListOptions, RunOptions>(args)
-                .WithParsed<AddOptions>(RunAddOptions)
-                .WithParsed<ListOptions>(RunListOptions)
-                .WithParsed<RunOptions>(RunRunOptions)
-                .WithNotParsed(HandleParseError);
+            RunServer();
+            // Parser.Default.ParseArguments<AddOptions, ListOptions, RunOptions>(args)
+            //     .WithParsed<AddOptions>(RunAddOptions)
+            //     .WithParsed<ListOptions>(RunListOptions)
+            //     .WithParsed<RunOptions>(RunRunOptions)
+            //     .WithNotParsed(HandleParseError);
         }
 
         private static void HandleParseError(IEnumerable<Error> errs)
@@ -51,6 +52,11 @@ namespace TodoList
         }
     
         private static void RunRunOptions(RunOptions opts)
+        {
+            RunServer();
+        }
+
+        private static void RunServer()
         {
             System.Console.WriteLine("Running server");
 

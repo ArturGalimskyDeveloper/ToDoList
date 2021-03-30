@@ -5,6 +5,6 @@ namespace TodoList
         public const string CONNECTION_STRING = "Data Source=tasks.db;Mode=ReadWriteCreate";
         
         // your token here
-        public static readonly string TOKEN = System.Environment.GetEnvironmentVariable("token_estbot");
+        public static readonly string TOKEN = System.Environment.GetEnvironmentVariable("token_todo_bot");
     }
 }

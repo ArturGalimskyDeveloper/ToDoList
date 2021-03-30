@@ -1,0 +1,7 @@
+add - add net task
+check - ...
+delete - delete task with specified number
+exit - delete me from bot
+help - how to deal with bot
+list - show my tasks
+start - start using bot
