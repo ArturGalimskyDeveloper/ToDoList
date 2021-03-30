@@ -1,4 +1,3 @@
-using Microsoft.Data.Sqlite;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -31,7 +30,7 @@ namespace TodoList
         {
             List<string> tasks = new List<string>();
 
-            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ToDoListBotDbConnection"].ConnectionString))
             {
                 connection.Open();
 
@@ -57,7 +56,7 @@ namespace TodoList
 
         public static void Save(string text, int user_id)
         {
-            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ToDoListBotDbConnection"].ConnectionString))
             {
                 connection.Open();
 
@@ -76,7 +75,7 @@ namespace TodoList
         public static bool Delete(int user_id, int taskIndex)
         {
             bool result = false;
-            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ToDoListBotDbConnection"].ConnectionString))
             {
                 connection.Open();
 

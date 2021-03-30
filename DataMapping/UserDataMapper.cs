@@ -9,7 +9,7 @@ namespace TodoList
         public static bool Save(User user)
         {
             bool result = false;
-            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ToDoListBotDbConnection"].ConnectionString))
             {
                 connection.Open();
 
@@ -30,7 +30,7 @@ namespace TodoList
         public static bool Delete(int id)
         {
             bool result = false;
-            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["TodoListDbConnection"].ConnectionString))
+            using(var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ToDoListBotDbConnection"].ConnectionString))
             {
                 connection.Open();
 
